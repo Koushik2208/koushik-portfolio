@@ -9,7 +9,6 @@ import {
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
-import CodeBlock from "@tiptap/extension-code-block";
 import Image from "@tiptap/extension-image";
 import { BubbleMenu as TiptapBubbleMenu } from "@tiptap/react/menus";
 import {
@@ -28,6 +27,8 @@ import {
   UnderlineIcon,
   UndoIcon,
   UnlinkIcon,
+  Maximize,
+  Minimize,
 } from "lucide-react";
 import { AssetSelector } from "@/components/dashboard/AssetSelector";
 import { Toggle } from "@/components/ui/toggle";
@@ -53,17 +54,28 @@ interface TiptapProps {
 }
 
 export default function Tiptap({ content, onChange, output = "html" }: TiptapProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
+
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        paragraph: {
+          HTMLAttributes: {
+            class: "tiptap-paragraph",
+          },
+        },
+      }),
       Highlight.configure({ multicolor: true }),
-      CodeBlock,
       Image,
     ],
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
+          "prose dark:prose-invert prose-xl focus:outline-none max-w-none min-h-[150px]",
       },
     },
     content,
@@ -80,9 +92,28 @@ export default function Tiptap({ content, onChange, output = "html" }: TiptapPro
   if (!editor) return null;
 
   return (
-    <div className="bg-background relative rounded-lg border">
-      <Toolbar editor={editor} />
-      <EditorContent editor={editor} className="px-4 py-3 min-h-[300px]" />
+    <div
+      className={
+        isFullscreen
+          ? "fixed inset-0 z-9999 bg-background flex flex-col p-4 w-screen h-screen overflow-hidden"
+          : "bg-background relative rounded-lg border"
+      }
+    >
+      <Toolbar
+        editor={editor}
+        isFullscreen={isFullscreen}
+        toggleFullscreen={toggleFullscreen}
+      />
+      <div className={isFullscreen ? "flex-1 overflow-y-auto mx-auto w-full max-w-5xl rounded-lg" : ""}>
+        <EditorContent
+          editor={editor}
+          className={
+            isFullscreen
+              ? "px-8 py-6 min-h-full"
+              : "px-4 py-3 min-h-[300px]"
+          }
+        />
+      </div>
       <BubbleMenu editor={editor} />
       <FloatingMenu editor={editor} />
     </div>
@@ -92,7 +123,15 @@ export default function Tiptap({ content, onChange, output = "html" }: TiptapPro
 // ────────────────────────────────────────────────
 // Toolbar (top bar)
 // ────────────────────────────────────────────────
-function Toolbar({ editor }: { editor: Editor }) {
+function Toolbar({
+  editor,
+  isFullscreen,
+  toggleFullscreen,
+}: {
+  editor: Editor;
+  isFullscreen?: boolean;
+  toggleFullscreen?: () => void;
+}) {
   const state = useEditorState({
     editor,
     selector: (ctx) => ({
@@ -277,6 +316,23 @@ function Toolbar({ editor }: { editor: Editor }) {
         }
         folderPath="portfolio/test"
       />
+
+      <div className="bg-border mx-1 h-6 w-px" />
+
+      {toggleFullscreen && (
+        <Toggle
+          size="sm"
+          pressed={isFullscreen}
+          onPressedChange={toggleFullscreen}
+          aria-label="Toggle Fullscreen"
+        >
+          {isFullscreen ? (
+            <Minimize className="h-4 w-4" />
+          ) : (
+            <Maximize className="h-4 w-4" />
+          )}
+        </Toggle>
+      )}
     </div>
   );
 }

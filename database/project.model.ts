@@ -41,7 +41,7 @@ const ProjectSchema = new Schema<IProject>(
       maxlength: 500,
     },
     content: {
-      type: Schema.Types.Mixed, // Optional detailed write-up
+      type: String, // Optional detailed write-up (HTML)
     },
     coverImage: {
       type: String,
@@ -77,7 +77,6 @@ ProjectSchema.pre('save', function () {
   }
 });
 
-ProjectSchema.index({ slug: 1 }, { unique: true });
 ProjectSchema.index({ featured: 1 });
 
 function generateSlug(text: string): string {

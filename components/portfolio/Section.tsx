@@ -13,11 +13,11 @@ const Section = ({ id, title, subtitle, children, className = "", dark = false }
   return (
     <section
       id={id}
-      className={`py-24 md:py-32 ${dark ? "bg-muted/30" : "bg-transparent"} ${className}`}
+      className={`py-12 md:py-16 ${dark ? "bg-muted/30" : "bg-transparent"} ${className}`}
     >
       <div className="container mx-auto px-6">
         {(title || subtitle) && (
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-8 max-w-2xl">
             {title && (
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
                 {title}

@@ -1,12 +1,44 @@
 import Hero from "@/components/portfolio/Hero";
 import Section from "@/components/portfolio/Section";
 import ProjectCard from "@/components/portfolio/ProjectCard";
-import SkillBadge from "@/components/portfolio/SkillBadge";
 import { ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { IProject } from "@/database/project.model";
+import { IBlog } from "@/database/blog.model";
 
-const Home = () => {
+async function getFeaturedProjects() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects?status=published`, {
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.projects?.slice(0, 2) || [];
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+    return [];
+  }
+}
+
+async function getRecentBlogs() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/blogs?status=published`, {
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.blogs?.slice(0, 3) || [];
+  } catch (error) {
+    console.error("Failed to fetch blogs:", error);
+    return [];
+  }
+}
+
+const Home = async () => {
+  const projects = await getFeaturedProjects();
+  const blogs = await getRecentBlogs();
+
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/20">
       <Hero />
@@ -15,7 +47,7 @@ const Home = () => {
       <Section id="about-highlight" title="Story & Vision">
         <div className="max-w-3xl space-y-8">
           <p className="text-2xl md:text-3xl text-muted-foreground leading-relaxed font-cormorant">
-            I’m a <span className="text-foreground font-semibold">Full-Stack MERN Developer</span> with 3+ years of experience. Beyond code, I’m exploring visual storytelling and AI-driven creativity to build products that feel alive.
+            I&apos;m a <span className="text-foreground font-semibold">Full-Stack MERN Developer</span> with 3+ years of experience. Beyond code, I’m exploring visual storytelling and AI-driven creativity to build products that feel alive.
           </p>
           <Button variant="link" className="px-0 text-lg font-bold group" asChild>
             <Link href="/about">
@@ -28,16 +60,23 @@ const Home = () => {
       {/* Projects Preview */}
       <Section id="projects-preview" title="Featured Projects" dark>
         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <ProjectCard
-            title="ContentGen Pro"
-            description="AI-Powered Personal Branding Assistant that helps users generate and plan social media content based on profession, tone, and audience."
-            tags={["Next.js", "Supabase", "OpenAI API"]}
-          />
-          <ProjectCard
-            title="Law Office Management System"
-            description="A comprehensive dashboard for managing lawyers, cases, and court hearings with advanced filtering and tracking."
-            tags={["Next.js", "TypeScript", "MongoDB"]}
-          />
+          {projects.map((project: IProject) => (
+            <ProjectCard
+              key={(project._id as any).toString()}
+              title={project.title}
+              description={project.description}
+              tags={project.techStack}
+              image={project.coverImage}
+              githubUrl={project.githubUrl}
+              liveUrl={project.liveUrl}
+              slug={project.slug}
+            />
+          ))}
+          {projects.length === 0 && (
+            <p className="text-muted-foreground col-span-2 text-center py-10">
+              Check back soon for new projects!
+            </p>
+          )}
         </div>
         <div className="text-center">
           <Button size="lg" variant="outline" className="shadow-sm" asChild>
@@ -51,15 +90,30 @@ const Home = () => {
       {/* Writing Preview */}
       <Section id="blog-preview" title="Recent Writing">
         <div className="max-w-2xl space-y-8">
-          <div className="space-y-2 group cursor-pointer">
-            <span className="text-xs font-bold text-primary uppercase tracking-widest font-inter">Jan 03, 2026</span>
-            <h3 className="text-2xl font-bold font-cormorant group-hover:text-primary transition-colors leading-tight">
-              The Intersection of AI and Creativity: Why I'm Learning Video Editing as a Developer
-            </h3>
-          </div>
+          {blogs.map((blog: IBlog) => (
+            <div key={(blog._id as any).toString()} className="space-y-2 group cursor-pointer block">
+              <Link href={`/blog/${blog.slug}`}>
+                <span className="text-xs font-bold text-primary uppercase tracking-widest font-inter">
+                  {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                </span>
+                <h3 className="text-2xl font-bold font-cormorant group-hover:text-primary transition-colors leading-tight mt-1">
+                  {blog.title}
+                </h3>
+                <p className="text-muted-foreground line-clamp-2 mt-2 font-inter text-sm">
+                  {blog.excerpt}
+                </p>
+              </Link>
+            </div>
+          ))}
+          {blogs.length === 0 && (
+            <p className="text-muted-foreground py-10">
+              Writing something interesting... coming soon!
+            </p>
+          )}
+
           <Button variant="link" className="px-0 text-lg font-bold group" asChild>
             <Link href="/blog">
-              Read the blog <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              Read all posts <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </div>

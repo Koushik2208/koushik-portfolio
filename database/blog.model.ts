@@ -40,7 +40,7 @@ const BlogSchema = new Schema<IBlog>(
       maxlength: 300,
     },
     content: {
-      type: Schema.Types.Mixed, // Tiptap JSON
+      type: String, // HTML Content
       required: true,
     },
     coverImage: {
@@ -84,7 +84,6 @@ BlogSchema.pre('save', function () {
   }
 });
 
-BlogSchema.index({ slug: 1 }, { unique: true });
 BlogSchema.index({ publishedAt: -1 });
 
 function generateSlug(text: string): string {

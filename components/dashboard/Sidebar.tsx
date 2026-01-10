@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const sidebarLinks = [
+export const sidebarLinks = [
     {
         name: "Overview",
         href: "/dashboard",
@@ -40,7 +40,7 @@ export function DashboardSidebar() {
     const pathname = usePathname();
 
     return (
-        <aside className="w-64 bg-card border-r flex flex-col h-screen sticky top-0">
+        <aside className="hidden md:flex w-64 bg-card border-r flex-col h-screen sticky top-0">
             <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
                 {sidebarLinks.map((link) => {
                     const Icon = link.icon;

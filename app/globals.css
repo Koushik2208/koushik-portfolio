@@ -46,8 +46,10 @@
   --radius: 0rem;
 
   /* Base */
-  --background: oklch(0.985 0 0); /* near-white */
-  --foreground: oklch(0.145 0 0); /* deep neutral */
+  --background: oklch(0.985 0 0);
+  /* near-white */
+  --foreground: oklch(0.145 0 0);
+  /* deep neutral */
 
   /* Surfaces */
   --card: oklch(0.99 0 0);
@@ -136,10 +138,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground font-inter;
   }
-  h1, h2, h3, p {
+
+  h1,
+  h2,
+  h3,
+  p {
     @apply font-cormorant;
+  }
+
+  p.tiptap-paragraph {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 }
