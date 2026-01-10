@@ -6,7 +6,7 @@ import { projectSchema } from "@/lib/validations";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { identifier: string } }
+  { params }: { params: Promise<{ identifier: string }> }
 ) {
   try {
     await connectDB();
@@ -53,7 +53,7 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { identifier: string } }
+  { params }: { params: Promise<{ identifier: string }> }
 ) {
   try {
     await connectDB();
