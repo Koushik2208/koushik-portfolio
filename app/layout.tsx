@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import LocalFont from "next/font/local";
 import "./globals.css";
 import { ImageKitProvider } from "@imagekit/next";
+import localFont from "next/font/local";
 
 const inter = LocalFont({
   src: "./fonts/Inter-VariableFont.ttf",
   variable: "--font-inter",
 });
 
-const cormorant = LocalFont({
-  src: "./fonts/CormorantGaramond-VariableFont_wght.ttf",
-  variable: "--font-cormorant",
-});
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-VariableFont_wght.ttf",
+  variable: "--font-space-grotesk"
+})
 
 export const metadata: Metadata = {
   title: "Koushik | Full-Stack MERN Developer",
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${cormorant.variable} antialiased`}
+        className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
       >
         <ImageKitProvider urlEndpoint={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT}>
           {children}

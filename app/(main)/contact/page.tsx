@@ -15,7 +15,7 @@ export default function ContactPage() {
 
                 {/* Header */}
                 <div className="mb-16 md:mb-24 text-center md:text-left">
-                    <h1 className="text-4xl md:text-6xl font-bold font-cormorant mb-4 selection:bg-primary/20">
+                    <h1 className="text-4xl md:text-6xl font-bold  mb-4 selection:bg-primary/20">
                         Let&apos;s clean up <br className="hidden md:block" />
                         <span className="text-muted-foreground">complex ideas into</span> <span className="text-primary italic">code.</span>
                     </h1>
@@ -73,7 +73,7 @@ export default function ContactPage() {
                     {/* Right: Form */}
                     <div className="bg-card border border-border/50 rounded-2xl p-6 md:p-10 shadow-sm">
                         <div className="mb-8">
-                            <h2 className="text-xl font-bold font-cormorant">Send a Message</h2>
+                            <h2 className="text-xl font-bold ">Send a Message</h2>
                             <p className="text-muted-foreground mt-2">I usually respond quickly.</p>
                         </div>
                         <ContactForm />

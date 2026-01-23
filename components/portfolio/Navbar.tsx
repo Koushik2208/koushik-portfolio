@@ -102,7 +102,7 @@ const Navbar = () => {
                       )}
                       onClick={() => setIsOpen(false)}
                     >
-                      <span className="font-cormorant">{link.name}</span>
+                      <span className="">{link.name}</span>
                       {isActive(link.href) && (
                         <div className="w-2 h-2 bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]" />
                       )}

@@ -46,7 +46,7 @@ const Home = async () => {
       {/* About Highlight */}
       <Section id="about-highlight" title="Story & Vision">
         <div className="max-w-3xl space-y-8">
-          <p className="text-2xl md:text-3xl text-muted-foreground leading-relaxed font-cormorant">
+          <p className="text-2xl md:text-3xl text-muted-foreground leading-relaxed ">
             I&apos;m a <span className="text-foreground font-semibold">Full-Stack MERN Developer</span> with 3+ years of experience. Beyond code, I’m exploring visual storytelling and AI-driven creativity to build products that feel alive.
           </p>
           <Button variant="link" className="px-0 text-lg font-bold group" asChild>
@@ -96,7 +96,7 @@ const Home = async () => {
                 <span className="text-xs font-bold text-primary uppercase tracking-widest font-inter">
                   {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                 </span>
-                <h3 className="text-2xl font-bold font-cormorant group-hover:text-primary transition-colors leading-tight mt-1">
+                <h3 className="text-2xl font-bold  group-hover:text-primary transition-colors leading-tight mt-1">
                   {blog.title}
                 </h3>
                 <p className="text-muted-foreground line-clamp-2 mt-2 font-inter text-sm">
@@ -122,7 +122,7 @@ const Home = async () => {
       {/* CTA Section */}
       <Section id="cta" title="Let's build together" dark>
         <div className="flex flex-col items-center text-center space-y-8 py-12">
-          <h3 className="text-3xl md:text-5xl font-bold font-cormorant max-w-2xl">
+          <h3 className="text-3xl md:text-5xl font-bold  max-w-2xl">
             Clean code. Thoughtful design. <br />
             Useful products.
           </h3>

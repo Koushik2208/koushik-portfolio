@@ -48,7 +48,7 @@ const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug
       {/* Content Section */}
       <div className="flex flex-col flex-1">
         <CardHeader className="p-6 pb-2">
-          <CardTitle className="text-2xl font-bold font-cormorant leading-tight group-hover:text-primary transition-colors">
+          <CardTitle className="text-2xl font-bold  leading-tight group-hover:text-primary transition-colors">
             {slug ? <Link href={`/projects/${slug}`}>{title}</Link> : title}
           </CardTitle>
         </CardHeader>

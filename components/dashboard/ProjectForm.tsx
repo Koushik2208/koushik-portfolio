@@ -144,7 +144,7 @@ export function ProjectForm({
                                             {...field}
                                             id="project-title"
                                             placeholder="My Awesome Project..."
-                                            className="h-12 text-lg font-cormorant"
+                                            className="h-12 text-lg "
                                         />
                                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                     </Field>

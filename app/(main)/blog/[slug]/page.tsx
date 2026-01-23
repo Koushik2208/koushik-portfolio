@@ -70,7 +70,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
     }
 
     return (
-        <main className="min-h-screen pb-20">
+        <main className="blog-content-wrapper min-h-screen pb-20">
             {/* Hero / Header */}
             <div className="bg-muted/30 border-b pt-20 pb-10">
                 <div className="max-w-3xl mx-auto px-6 md:px-0">
@@ -88,7 +88,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
                         {/* Could add Read Time here if calculated */}
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-bold font-cormorant mb-6 leading-tight text-foreground">
+                    <h1 className="text-4xl md:text-6xl font-bold  mb-6 leading-tight text-foreground">
                         {blog.title}
                     </h1>
 
@@ -117,7 +117,7 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
                 )}
 
                 <article
-                    className="prose dark:prose-invert prose-xl max-w-none font-inter prose-headings:font-cormorant prose-p:text-xl prose-p:leading-relaxed prose-a:text-primary"
+                    className="blog prose dark:prose-invert prose-xl max-w-none font-inter prose-headings:text-foreground prose-p:text-xl prose-p:leading-relaxed prose-a:text-primary"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
             </div>

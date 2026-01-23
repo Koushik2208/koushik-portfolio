@@ -40,11 +40,11 @@ export default async function BlogPage() {
                                     </span>
                                 </div>
                                 <Link href={`/blog/${post.slug}`}>
-                                    <CardTitle className="text-2xl md:text-3xl font-bold font-cormorant group-hover:text-primary transition-colors cursor-pointer">
+                                    <CardTitle className="text-2xl md:text-3xl font-bold  group-hover:text-primary transition-colors cursor-pointer">
                                         {post.title}
                                     </CardTitle>
                                 </Link>
-                                <CardDescription className="text-lg font-cormorant leading-relaxed mt-2">
+                                <CardDescription className="text-lg  leading-relaxed mt-2">
                                     {post.excerpt}
                                 </CardDescription>
                             </CardHeader>

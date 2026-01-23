@@ -79,7 +79,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
                         </Link>
                     </Button>
 
-                    <h1 className="text-4xl md:text-5xl font-bold font-cormorant mb-6 leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold  mb-6 leading-tight">
                         {project.title}
                     </h1>
 
@@ -134,7 +134,7 @@ export default async function ProjectDetailsPage({ params }: { params: Promise<{
 
                 {/* Project Content */}
                 {project.content && (
-                    <article className="prose dark:prose-invert prose-xl max-w-none font-inter prose-headings:font-cormorant prose-p:text-xl prose-p:leading-relaxed">
+                    <article className="prose dark:prose-invert prose-xl max-w-none font-inter prose-headings: prose-p:text-xl prose-p:leading-relaxed">
                         <div dangerouslySetInnerHTML={{ __html: project.content }} />
                     </article>
                 )}

@@ -28,7 +28,7 @@ export function ContactForm() {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 animate-in zoom-in duration-500">
                     <CheckCircle2 size={32} />
                 </div>
-                <h3 className="text-2xl font-bold font-cormorant">Message Sent!</h3>
+                <h3 className="text-2xl font-bold ">Message Sent!</h3>
                 <p className="text-muted-foreground font-inter max-w-xs">
                     Thank you for reaching out. I'll get back to you as soon as possible.
                 </p>

@@ -140,7 +140,7 @@ export function BlogForm({
                                             {...field}
                                             id="blog-title"
                                             placeholder="The Future of Web Development..."
-                                            className="h-12 text-lg font-cormorant"
+                                            className="h-12 text-lg "
                                         />
                                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                     </Field>
