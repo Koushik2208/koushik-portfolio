@@ -7,28 +7,29 @@ interface SectionProps {
   children: React.ReactNode;
   className?: string;
   dark?: boolean;
+  asymmetric?: boolean;
 }
 
-const Section = ({ id, title, subtitle, children, className = "", dark = false }: SectionProps) => {
+const Section = ({ id, title, subtitle, children, className = "", dark = false, asymmetric = false }: SectionProps) => {
   return (
     <section
       id={id}
-      className={`py-12 md:py-16 ${dark ? "bg-muted/30" : "bg-transparent"} ${className}`}
+      className={`py-20 md:py-32 ${dark ? "bg-muted/30" : "bg-transparent"} ${className}`}
     >
-      <div className="container mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24">
         {(title || subtitle) && (
-          <div className="mb-8 max-w-2xl">
+          <div className={`mb-16 max-w-4xl ${asymmetric ? "lg:ml-12" : ""}`}>
             {title && (
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-8">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-xl text-muted-foreground leading-relaxed">
                 {subtitle}
               </p>
             )}
-            <div className="h-1.5 w-12 bg-primary mt-6 shadow-sm" />
+            <div className="h-1.5 w-12 bg-primary mt-10 shadow-sm" />
           </div>
         )}
         {children}

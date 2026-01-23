@@ -14,7 +14,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 sm:py-24">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24 py-32 sm:py-40">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-8 text-center lg:text-left">
@@ -26,12 +26,12 @@ const Hero = () => {
 
             {/* Main Heading */}
             <div className="space-y-4">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground">
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-foreground leading-[1.05]">
                 <span className="block">Full-Stack</span>
                 <span className="text-primary block">MERN Developer</span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl leading-relaxed mx-auto lg:mx-0">
+              <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed mx-auto lg:mx-0">
                 I build scalable web & mobile apps and explore storytelling through content, video, and AI-powered creativity.
               </p>
             </div>

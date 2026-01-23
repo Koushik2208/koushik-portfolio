@@ -34,7 +34,10 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === "/";
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   return (
     <nav
@@ -45,7 +48,7 @@ const Navbar = () => {
           : "bg-transparent py-6"
       )}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold tracking-tight text-primary hover:opacity-80 transition-opacity">
           KOUSHIK
         </Link>

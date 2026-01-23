@@ -72,54 +72,59 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
     return (
         <main className="blog-content-wrapper min-h-screen pb-20">
             {/* Hero / Header */}
-            <div className="bg-muted/30 border-b pt-20 pb-10">
-                <div className="max-w-3xl mx-auto px-6 md:px-0">
-                    <Button variant="ghost" size="sm" asChild className="mb-8 -ml-4 text-muted-foreground hover:text-foreground">
-                        <Link href="/blog">
-                            <ArrowLeft size={16} className="mr-2" /> Back to Writing
-                        </Link>
-                    </Button>
+            <div className="border-b pt-32 pb-20">
+                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24">
+                    <div className="max-w-4xl mx-auto">
+                        <Button variant="ghost" size="sm" asChild className="mb-12 -ml-4 text-muted-foreground hover:text-foreground">
+                            <Link href="/blog">
+                                <ArrowLeft size={16} className="mr-2" /> Back to Writing
+                            </Link>
+                        </Button>
 
-                    <div className="flex items-center gap-4 mb-6 text-sm text-muted-foreground font-inter">
-                        <span className="flex items-center gap-1 bg-background border px-2 py-0.5 rounded-full">
-                            <Calendar size={12} />
-                            {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                        </span>
-                        {/* Could add Read Time here if calculated */}
-                    </div>
-
-                    <h1 className="text-4xl md:text-6xl font-bold  mb-6 leading-tight text-foreground">
-                        {blog.title}
-                    </h1>
-
-                    {blog.tags && blog.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-6">
-                            {blog.tags.map(tag => (
-                                <span key={tag} className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                                    #{tag}
-                                </span>
-                            ))}
+                        <div className="flex items-center gap-4 mb-8 text-sm text-muted-foreground font-inter">
+                            <span className="flex items-center gap-1 bg-background border px-3 py-1 rounded-full">
+                                <Calendar size={12} />
+                                {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                            </span>
                         </div>
-                    )}
+
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-12 leading-[1.1] text-foreground tracking-tighter">
+                            {blog.title}
+                        </h1>
+
+                        {blog.tags && blog.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2 mt-8">
+                                {blog.tags.map(tag => (
+                                    <span key={tag} className="text-sm font-medium text-primary bg-primary/10 px-4 py-1.5 rounded-full">
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* Content */}
-            <div className="max-w-3xl mx-auto px-6 md:px-0 py-12">
-                {blog.coverImage && (
-                    <div className="rounded-xl overflow-hidden border shadow-sm mb-12 aspect-video bg-muted relative">
-                        <img
-                            src={blog.coverImage}
-                            alt={blog.title}
-                            className="w-full h-full object-cover"
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24 py-20">
+                <div className="max-w-4xl mx-auto">
+                    {blog.coverImage && (
+                        <div className="rounded-2xl overflow-hidden border shadow-sm mb-20 aspect-video bg-muted relative">
+                            <img
+                                src={blog.coverImage}
+                                alt={blog.title}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    )}
+
+                    <div className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8 md:p-12 lg:p-16 shadow-xl">
+                        <article
+                            className="blog prose dark:prose-invert prose-xl max-w-none font-inter prose-headings:text-foreground prose-p:text-xl prose-p:leading-relaxed prose-a:text-primary"
+                            dangerouslySetInnerHTML={{ __html: blog.content }}
                         />
                     </div>
-                )}
-
-                <article
-                    className="blog prose dark:prose-invert prose-xl max-w-none font-inter prose-headings:text-foreground prose-p:text-xl prose-p:leading-relaxed prose-a:text-primary"
-                    dangerouslySetInnerHTML={{ __html: blog.content }}
-                />
+                </div>
             </div>
         </main>
     );

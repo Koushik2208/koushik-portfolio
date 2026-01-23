@@ -75,7 +75,7 @@ export default function Tiptap({ content, onChange, output = "html" }: TiptapPro
     editorProps: {
       attributes: {
         class:
-          "prose dark:prose-invert prose-xl focus:outline-none max-w-none min-h-[150px]",
+          "prose dark:prose-invert prose-xl focus:outline-none max-w-none min-h-[150px] prose-headings:text-foreground",
       },
     },
     content,
@@ -95,8 +95,8 @@ export default function Tiptap({ content, onChange, output = "html" }: TiptapPro
     <div
       className={
         isFullscreen
-          ? "fixed inset-0 z-9999 bg-background flex flex-col p-4 w-screen h-screen overflow-hidden"
-          : "bg-background relative rounded-lg border"
+          ? "blog-content-wrapper fixed inset-0 z-9999 bg-background flex flex-col p-4 w-screen h-screen overflow-hidden"
+          : "blog-content-wrapper bg-background relative rounded-lg border"
       }
     >
       <Toolbar
