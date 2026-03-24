@@ -95,10 +95,10 @@ const Hero = () => {
               {/* Image Container with provided link */}
               <div className="relative aspect-square rounded-3xl bg-muted/20 shadow-2xl overflow-hidden border-8 border-background">
                 <Image
-                  src="https://ik.imagekit.io/jsmasterykoushik/portfolio/test/me-buzz-crop.png"
+                  src="https://ik.imagekit.io/jsmasterykoushik/portfolio/test/me.jpeg"
                   alt="Koushik - Full Stack Developer"
                   fill
-                  className="object-cover object-top"
+                  className="object-contain object-top"
                   priority
                 />
               </div>
