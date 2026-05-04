@@ -63,6 +63,8 @@ export function ProjectForm({
             techStack: [],
             status: "published",
             featured: false,
+            projectType: "main",
+            linkedBlog: "",
             coverImage: "",
             githubUrl: "",
             liveUrl: "",
@@ -93,7 +95,7 @@ export function ProjectForm({
                                     name="status"
                                     control={form.control}
                                     render={({ field }) => (
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <Select onValueChange={field.onChange} value={field.value}>
                                             <SelectTrigger className="w-32">
                                                 <SelectValue placeholder="Status" />
                                             </SelectTrigger>
@@ -171,20 +173,41 @@ export function ProjectForm({
                                 )}
                             />
 
+                            {/* Tech Stack Field — Full Width */}
+                            <Controller
+                                name="techStack"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="project-techstack" className="text-sm font-bold font-inter uppercase tracking-wider text-muted-foreground">TECH STACK</FieldLabel>
+                                        <TagInput
+                                            value={field.value || []}
+                                            onChange={field.onChange}
+                                        />
+                                        <FieldDescription>Type a technology and press Enter to add.</FieldDescription>
+                                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                    </Field>
+                                )}
+                            />
+
                             <div className="grid md:grid-cols-2 gap-8">
-                                {/* Tech Stack Field */}
+                                {/* Project Type */}
                                 <Controller
-                                    name="techStack"
+                                    name="projectType"
                                     control={form.control}
-                                    render={({ field, fieldState }) => (
-                                        <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor="project-techstack" className="text-sm font-bold font-inter uppercase tracking-wider text-muted-foreground">TECH STACK</FieldLabel>
-                                            <TagInput
-                                                value={field.value || []}
-                                                onChange={field.onChange}
-                                            />
-                                            <FieldDescription>Type a technology and press Enter to add.</FieldDescription>
-                                            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                    render={({ field }) => (
+                                        <Field>
+                                            <FieldLabel className="text-sm font-bold font-inter uppercase tracking-wider text-muted-foreground">PROJECT TYPE</FieldLabel>
+                                            <Select onValueChange={field.onChange} value={field.value || 'main'}>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Type" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="main">Main Project</SelectItem>
+                                                    <SelectItem value="mini">Mini Project / Tutorial</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FieldDescription>Mini projects appear in the Tutorials section.</FieldDescription>
                                         </Field>
                                     )}
                                 />
@@ -254,6 +277,25 @@ export function ProjectForm({
                                     )}
                                 />
                             </div>
+
+                            {/* Linked Blog Field */}
+                            <Controller
+                                name="linkedBlog"
+                                control={form.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="project-linked-blog" className="text-sm font-bold font-inter uppercase tracking-wider text-muted-foreground">LINKED BLOG (OPTIONAL)</FieldLabel>
+                                        <Input
+                                            {...field}
+                                            id="project-linked-blog"
+                                            placeholder="my-tutorial-blog-post-slug"
+                                            className="font-inter"
+                                        />
+                                        <FieldDescription>Enter a blog post slug to cross-reference. Visitors will see a &quot;Read the tutorial&quot; link.</FieldDescription>
+                                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                                    </Field>
+                                )}
+                            />
 
                             {/* Content Field */}
                             <Controller

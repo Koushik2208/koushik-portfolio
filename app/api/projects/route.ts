@@ -9,8 +9,15 @@ export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status");
+    const type = searchParams.get("type"); // 'main', 'mini', or null (all)
 
-    const query = status === "all" ? {} : { status: "published" };
+    const query: Record<string, any> = status === "all" ? {} : { status: "published" };
+
+    if (type === "main") {
+      query.projectType = { $in: ["main", null] };
+    } else if (type === "mini") {
+      query.projectType = "mini";
+    }
 
     const projects = await Project.find(query)
       .sort({ featured: -1, createdAt: -1 })

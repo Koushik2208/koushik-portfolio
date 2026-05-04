@@ -18,16 +18,18 @@ interface ProjectCardProps {
   liveUrl?: string;
   image?: string;
   slug?: string;
+  basePath?: string;
 }
 
-const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug, basePath = "/projects" }: ProjectCardProps) => {
+  const detailHref = `${basePath}/${slug}`;
   return (
     <Card className="group flex flex-col h-full overflow-hidden border-border/50 bg-card hover:border-border/80 hover:shadow-lg transition-all duration-300">
       {/* Image Section */}
       {image && (
         <div className="relative w-full aspect-video bg-muted overflow-hidden border-b border-border/50">
           {slug ? (
-            <Link href={`/projects/${slug}`}>
+            <Link href={detailHref}>
               <img
                 src={image}
                 alt={title}
@@ -49,7 +51,7 @@ const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug
       <div className="flex flex-col flex-1">
         <CardHeader className="p-6 pb-2">
           <CardTitle className="text-2xl font-bold  leading-tight group-hover:text-primary transition-colors">
-            {slug ? <Link href={`/projects/${slug}`}>{title}</Link> : title}
+            {slug ? <Link href={detailHref}>{title}</Link> : title}
           </CardTitle>
         </CardHeader>
 

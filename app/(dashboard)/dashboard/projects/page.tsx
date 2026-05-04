@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { LayoutGrid, ExternalLink, Github, Loader2, Pencil, ArrowRight } from "lucide-react";
+import { LayoutGrid, Blocks, ExternalLink, Github, Loader2, Pencil, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -12,10 +12,14 @@ import {
     CardContent,
 } from "@/components/ui/card";
 import { IProject } from "@/database/project.model";
+import { cn } from "@/lib/utils";
+
+type FilterType = "all" | "main" | "mini";
 
 export default function DashboardProjectsPage() {
     const [projects, setProjects] = useState<IProject[]>([]);
     const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState<FilterType>("all");
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -32,6 +36,16 @@ export default function DashboardProjectsPage() {
         fetchProjects();
     }, []);
 
+    const filteredProjects = filter === "all"
+        ? projects
+        : projects.filter((p) => (p.projectType || "main") === filter);
+
+    const tabs: { label: string; value: FilterType; count: number }[] = [
+        { label: "All", value: "all", count: projects.length },
+        { label: "Main Projects", value: "main", count: projects.filter((p) => !p.projectType || p.projectType === "main").length },
+        { label: "Mini Projects", value: "mini", count: projects.filter((p) => p.projectType === "mini").length },
+    ];
+
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -47,13 +61,35 @@ export default function DashboardProjectsPage() {
                 </Button>
             </div>
 
+            {/* Filter Tabs */}
+            <div className="flex gap-1 border-b">
+                {tabs.map((tab) => (
+                    <button
+                        key={tab.value}
+                        onClick={() => setFilter(tab.value)}
+                        className={cn(
+                            "px-4 py-2.5 text-sm font-medium transition-all relative cursor-pointer",
+                            filter === tab.value
+                                ? "text-primary"
+                                : "text-muted-foreground hover:text-foreground"
+                        )}
+                    >
+                        {tab.label}
+                        <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
+                        {filter === tab.value && (
+                            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                        )}
+                    </button>
+                ))}
+            </div>
+
             {loading ? (
                 <div className="flex justify-center items-center h-64">
                     <Loader2 className="animate-spin text-primary" size={40} />
                 </div>
             ) : (
                 <div className="grid md:grid-cols-2 gap-6">
-                    {projects.map((project) => (
+                    {filteredProjects.map((project) => (
                         <Card key={(project._id as any).toString()} className="hover:shadow-md transition-shadow flex flex-col font-inter overflow-hidden">
                             {project.coverImage && (
                                 <div className="aspect-video w-full overflow-hidden border-b bg-muted">
@@ -66,8 +102,13 @@ export default function DashboardProjectsPage() {
                             )}
                             <CardHeader>
                                 <div className="flex justify-between items-start">
-                                    <div className="w-10 h-10 bg-primary/10 flex items-center justify-center text-primary mb-4">
-                                        <LayoutGrid size={20} />
+                                    <div className={cn(
+                                        "w-10 h-10 flex items-center justify-center mb-4",
+                                        project.projectType === "mini"
+                                            ? "bg-violet-500/10 text-violet-500"
+                                            : "bg-primary/10 text-primary"
+                                    )}>
+                                        {project.projectType === "mini" ? <Blocks size={20} /> : <LayoutGrid size={20} />}
                                     </div>
                                     <div className="flex gap-2">
                                         <Button variant="ghost" size="icon" className="h-8 w-8" asChild title="Edit Project">
@@ -91,8 +132,11 @@ export default function DashboardProjectsPage() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 flex-wrap">
                                     <CardTitle className="text-xl">{project.title}</CardTitle>
+                                    {project.projectType === "mini" && (
+                                        <span className="px-1.5 py-0.5 bg-violet-100 text-violet-800 dark:bg-violet-500/20 dark:text-violet-300 text-[10px] font-bold uppercase rounded">Mini</span>
+                                    )}
                                     {project.status === "draft" && (
                                         <span className="px-1.5 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] font-bold uppercase rounded">Draft</span>
                                     )}

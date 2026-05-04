@@ -10,6 +10,8 @@ export interface IProject extends Document {
   githubUrl?: string;
   liveUrl?: string;
   featured: boolean;
+  projectType: 'main' | 'mini';
+  linkedBlog?: string; // Blog slug for cross-referencing tutorials
   status: 'draft' | 'published';
   seo?: {
     title?: string;
@@ -57,6 +59,15 @@ const ProjectSchema = new Schema<IProject>(
       type: Boolean,
       default: false,
     },
+    projectType: {
+      type: String,
+      enum: ['main', 'mini'],
+      default: 'main',
+    },
+    linkedBlog: {
+      type: String, // Blog slug for cross-referencing tutorials
+      trim: true,
+    },
     status: {
       type: String,
       enum: ['draft', 'published'],
@@ -77,7 +88,7 @@ ProjectSchema.pre('save', function () {
   }
 });
 
-ProjectSchema.index({ featured: 1 });
+ProjectSchema.index({ projectType: 1, featured: 1 });
 
 function generateSlug(text: string): string {
   return text

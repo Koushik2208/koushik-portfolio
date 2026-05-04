@@ -77,28 +77,25 @@ export async function PATCH(
     }
 
     const updateData = parsed.data;
-
     const { identifier } = await params;
 
     const query = mongoose.Types.ObjectId.isValid(identifier)
       ? { _id: identifier }
       : { slug: identifier };
 
-    const updatedProject = await Project.findOneAndUpdate(
-      query,
-      updateData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const project = await Project.findOne(query);
 
-    if (!updatedProject) {
+    if (!project) {
       return NextResponse.json(
         { message: "Project not found" },
         { status: 404 }
       );
     }
+
+    // Update fields
+    Object.assign(project, updateData);
+
+    const updatedProject = await project.save();
 
     return NextResponse.json(
       {

@@ -9,7 +9,7 @@ import { IBlog } from "@/database/blog.model";
 
 async function getFeaturedProjects() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects?status=published`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects?status=published&type=main`, {
       next: { revalidate: 60 }
     });
     if (!res.ok) return [];
@@ -35,8 +35,23 @@ async function getRecentBlogs() {
   }
 }
 
+async function getFeaturedTutorials() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects?status=published&type=mini`, {
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.projects?.slice(0, 3) || [];
+  } catch (error) {
+    console.error("Failed to fetch tutorials:", error);
+    return [];
+  }
+}
+
 const Home = async () => {
   const projects = await getFeaturedProjects();
+  const tutorials = await getFeaturedTutorials();
   const blogs = await getRecentBlogs();
 
   return (
@@ -86,6 +101,34 @@ const Home = async () => {
           </Button>
         </div>
       </Section>
+
+      {/* Tutorials Preview */}
+      {tutorials.length > 0 && (
+        <Section id="tutorials-preview" title="Featured Tutorials">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {tutorials.map((tutorial: IProject) => (
+              <ProjectCard
+                key={(tutorial._id as any).toString()}
+                title={tutorial.title}
+                description={tutorial.description}
+                tags={tutorial.techStack}
+                image={tutorial.coverImage}
+                githubUrl={tutorial.githubUrl}
+                liveUrl={tutorial.liveUrl}
+                slug={tutorial.slug}
+                basePath="/tutorials"
+              />
+            ))}
+          </div>
+          <div className="text-center">
+            <Button size="lg" variant="outline" className="shadow-sm" asChild>
+              <Link href="/tutorials">
+                View All Tutorials
+              </Link>
+            </Button>
+          </div>
+        </Section>
+      )}
 
       {/* Writing Preview */}
       <Section id="blog-preview" title="Recent Writing">

@@ -50,6 +50,7 @@ export const projectSchema = z.object({
   coverImage: z
     .string()
     .url('Invalid image URL')
+    .or(z.literal(""))
     .optional(),
 
   techStack: z
@@ -59,14 +60,23 @@ export const projectSchema = z.object({
   githubUrl: z
     .string()
     .url('Invalid GitHub URL')
+    .or(z.literal(""))
     .optional(),
 
   liveUrl: z
     .string()
     .url('Invalid live URL')
+    .or(z.literal(""))
     .optional(),
 
   featured: z.boolean().default(false),
+
+  projectType: z.enum(['main', 'mini']).optional(),
+
+  linkedBlog: z
+    .string()
+    .trim()
+    .optional(),
 
   status: z.enum(['draft', 'published']).default('published'),
 
