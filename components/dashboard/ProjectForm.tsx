@@ -308,6 +308,7 @@ export function ProjectForm({
                                             content={field.value}
                                             onChange={field.onChange}
                                             output="html"
+                                            rotated={false}
                                         />
                                         <FieldDescription>Add a detailed write-up about your project, implementation details, challenges, etc.</FieldDescription>
                                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

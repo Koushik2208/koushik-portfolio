@@ -24,7 +24,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug, basePath = "/projects" }: ProjectCardProps) => {
   const detailHref = `${basePath}/${slug}`;
   return (
-    <Card className="group flex flex-col h-full overflow-hidden border-border/50 bg-card hover:border-border/80 hover:shadow-lg transition-all duration-300">
+    <Card className="group flex flex-col h-full overflow-hidden border-border/50 bg-card artifact-shadow artifact-rotate-right transition-all duration-300 hover:rotate-0 hover:translate-y-[-4px]">
       {/* Image Section */}
       {image && (
         <div className="relative w-full aspect-video bg-muted overflow-hidden border-b border-border/50">
@@ -67,7 +67,7 @@ const ProjectCard = ({ title, description, tags, githubUrl, liveUrl, image, slug
             {tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-background border rounded-sm text-muted-foreground"
+                className="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider bg-accent border rounded-sm text-foreground/80 shadow-[1px_1px_0px_rgba(0,0,0,0.1)]"
               >
                 {tag}
               </span>

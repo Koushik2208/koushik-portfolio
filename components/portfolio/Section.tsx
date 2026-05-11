@@ -14,13 +14,13 @@ const Section = ({ id, title, subtitle, children, className = "", dark = false, 
   return (
     <section
       id={id}
-      className={`py-20 md:py-32 ${dark ? "bg-muted/30" : "bg-transparent"} ${className}`}
+      className={`py-24 md:py-40 ${dark ? "bg-muted/40" : "bg-transparent"} ${className}`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 2xl:px-24">
         {(title || subtitle) && (
           <div className={`mb-16 max-w-4xl ${asymmetric ? "lg:ml-12" : ""}`}>
             {title && (
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-8">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-historia font-bold tracking-tight text-foreground mb-8">
                 {title}
               </h2>
             )}

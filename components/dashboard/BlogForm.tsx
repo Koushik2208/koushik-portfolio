@@ -200,6 +200,7 @@ export function BlogForm({
                                                 field.onChange(val);
                                             }}
                                             output="html"
+                                            rotated={false}
                                         />
                                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                     </Field>

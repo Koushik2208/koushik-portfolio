@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import LocalFont from "next/font/local";
 import "./globals.css";
 import { ImageKitProvider } from "@imagekit/next";
-import localFont from "next/font/local";
+import { IBM_Plex_Mono } from "next/font/google";
 
-const inter = LocalFont({
-  src: "./fonts/Inter-VariableFont.ttf",
-  variable: "--font-inter",
+const historia = LocalFont({
+  src: "./fonts/HistoriaSky.ttf",
+  variable: "--font-historia",
 });
 
-const spaceGrotesk = localFont({
-  src: "./fonts/SpaceGrotesk-VariableFont_wght.ttf",
-  variable: "--font-space-grotesk"
-})
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "Koushik | Full-Stack MERN Developer",
@@ -25,9 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body
-        className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
+        className={`${historia.variable} ${ibmPlexMono.variable} font-mono antialiased`}
       >
         <ImageKitProvider urlEndpoint={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT}>
           {children}

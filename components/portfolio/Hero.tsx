@@ -26,9 +26,9 @@ const Hero = () => {
 
             {/* Main Heading */}
             <div className="space-y-4">
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-foreground leading-[1.05]">
+              <h1 className="text-6xl sm:text-7xl lg:text-9xl font-historia font-bold tracking-tighter text-foreground leading-[0.9] italic">
                 <span className="block">Full-Stack</span>
-                <span className="text-primary block">MERN Developer</span>
+                <span className="text-primary block not-italic">MERN Developer</span>
               </h1>
 
               <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed mx-auto lg:mx-0">

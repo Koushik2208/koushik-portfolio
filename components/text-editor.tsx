@@ -51,9 +51,15 @@ interface TiptapProps {
   content?: string | any;
   onChange?: (content: string | any) => void;
   output?: "html" | "json";
+  rotated?: boolean;
 }
 
-export default function Tiptap({ content, onChange, output = "html" }: TiptapProps) {
+export default function Tiptap({ 
+  content, 
+  onChange, 
+  output = "html",
+  rotated = true 
+}: TiptapProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const toggleFullscreen = useCallback(() => {
@@ -95,8 +101,8 @@ export default function Tiptap({ content, onChange, output = "html" }: TiptapPro
     <div
       className={
         isFullscreen
-          ? "blog-content-wrapper fixed inset-0 z-9999 bg-background flex flex-col p-4 w-screen h-screen overflow-hidden"
-          : "blog-content-wrapper bg-background relative rounded-lg border"
+          ? "blog-content-wrapper fixed inset-0 z-[9999] bg-background flex flex-col p-4 w-screen h-screen overflow-hidden"
+          : `blog-content-wrapper bg-background relative rounded-sm border artifact-shadow transition-transform duration-300 ${rotated ? 'artifact-rotate-left hover:rotate-0' : ''}`
       }
     >
       <Toolbar
@@ -168,7 +174,7 @@ function Toolbar({
   }, [editor]);
 
   return (
-    <div className="bg-background sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b p-2">
+    <div className="bg-muted/50 sticky top-0 z-10 flex flex-wrap items-center gap-1 border-b p-2 backdrop-blur-sm">
       <Select
         value={state.headingLevel ?? "paragraph"}
         onValueChange={handleHeadingChange}
@@ -226,7 +232,7 @@ function Toolbar({
         size="sm"
         pressed={state.isHighlight}
         onPressedChange={() =>
-          editor.chain().focus().toggleHighlight({ color: "#fef08a" }).run()
+          editor.chain().focus().toggleHighlight({ color: "#ffdbd1" }).run()
         }
         aria-label="Highlight"
       >
@@ -430,7 +436,7 @@ function BubbleMenu({ editor }: { editor: Editor }) {
   return (
     <TiptapBubbleMenu
       editor={editor}
-      className="flex items-center gap-0.5 rounded-md border bg-background shadow-md p-1 z-50"
+      className="flex items-center gap-0.5 rounded-sm border bg-card artifact-shadow p-1 z-50"
     >
       <Toggle
         size="sm"
